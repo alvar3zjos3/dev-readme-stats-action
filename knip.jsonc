@@ -1,4 +1,4 @@
 {
   "$schema": "./node_modules/knip/schema.json",
-  "ignoreDependencies": ["@alvar3zjos3/dev-readme-stats-core"]
+  "ignoreDependencies": ["@stats-organization/github-readme-stats-core"]
 }
