@@ -1,4 +1,4 @@
-name: CI
+name: CI (Integración Continua)
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ permissions: {}
 
 jobs:
   test:
-    name: Test on ${{ matrix.os }}
+    name: Probar en ${{ matrix.os }}
 
     strategy:
       fail-fast: false
@@ -29,20 +29,20 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout code
+      - name: Descargar código fuente
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Install Dependencies
+      - name: Instalar dependencias
         uses: ./.github/actions/install-dependencies
 
-      - name: Run E2E tests
+      - name: Ejecutar pruebas E2E (End-to-End)
         run: pnpm run test
         env:
           PAT_1: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY_OWNER: "rickstaa"
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
 
   code-checks:
-    name: Code checks
+    name: Verificación de código
 
     runs-on: ubuntu-latest
 
@@ -50,14 +50,15 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout code
+      - name: Descargar código fuente
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Install Dependencies
+      - name: Instalar dependencias
         uses: ./.github/actions/install-dependencies
 
-      - name: Format
+      - name: Comprobar formato
         run: pnpm run format:check
 
-      - name: Lint (knip)
+      - name: Análisis estático (Lint con knip)
         run: pnpm run lint:knip
+        

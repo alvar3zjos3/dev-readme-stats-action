@@ -10,7 +10,7 @@ const rootDir = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
 );
-const repoOwner = process.env.GITHUB_REPOSITORY_OWNER ?? "rickstaa";
+const repoOwner = process.env.GITHUB_REPOSITORY_OWNER ?? "alvar3zjos3";
 let buildDir;
 
 const runCard = (card, options, output, coreVersion) =>
@@ -31,7 +31,7 @@ const runCard = (card, options, output, coreVersion) =>
       if (code === 0) {
         resolve();
       } else {
-        reject(new Error(`Card ${card} failed with code ${code}`));
+        reject(new Error(`La tarjeta ${card} falló con el código ${code}`));
       }
     });
   });
@@ -51,14 +51,14 @@ afterAll(async () => {
   }
 });
 
-describe.concurrent("generate cards locally", () => {
-  test("generated stats card contains svg", async () => {
+describe.concurrent("generar tarjetas localmente", () => {
+  test("la tarjeta stats generada contiene un svg", async () => {
     const statsPath = path.join(buildDir, "stats.svg");
     await runCard("stats", `username=${repoOwner}&show_icons=true`, statsPath);
     await assertSvg(statsPath);
   });
 
-  test("generated top-langs card contains svg", async () => {
+  test("la tarjeta top-langs generada contiene un svg", async () => {
     const langsPath = path.join(buildDir, "top-langs.svg");
     await runCard(
       "top-langs",
@@ -68,26 +68,26 @@ describe.concurrent("generate cards locally", () => {
     await assertSvg(langsPath);
   });
 
-  test("generated pin card contains svg", async () => {
+  test("la tarjeta pin generada contiene un svg", async () => {
     const pinPath = path.join(
       buildDir,
-      "pin-stats-organization-github-readme-stats.svg",
+      "pin-alvar3zjos3-dev-readme-stats-action.svg",
     );
     await runCard(
       "pin",
-      "username=stats-organization&repo=github-readme-stats",
+      "username=alvar3zjos3&repo=dev-readme-stats-action",
       pinPath,
     );
     await assertSvg(pinPath);
   });
 
-  test("generated wakatime card contains svg", async () => {
+  test("la tarjeta wakatime generada contiene un svg", async () => {
     const wakatimePath = path.join(buildDir, "wakatime.svg");
     await runCard("wakatime", "username=MNZ&layout=compact", wakatimePath);
     await assertSvg(wakatimePath);
   });
 
-  test("rejects invalid core_version input before install", async () => {
+  test("rechaza la entrada de core_version no válida antes de instalar", async () => {
     const invalidVersionPath = path.join(buildDir, "invalid-version.svg");
 
     await expect(
@@ -101,22 +101,22 @@ describe.concurrent("generate cards locally", () => {
   });
 });
 
-describe("include requested core package versions", () => {
-  test("use core package version 'v2'", async () => {
+describe("incluir las versiones del paquete core solicitadas", () => {
+  test("usar la versión 'v2' del paquete core", async () => {
     const v2Path = path.join(buildDir, "v2.svg");
 
     await runCard("stats", `username=${repoOwner}`, v2Path, "v2");
     await assertSvg(v2Path);
   });
 
-  test("use core package version 'latest'", async () => {
+  test("usar la versión 'latest' del paquete core", async () => {
     const latestPath = path.join(buildDir, "latest.svg");
 
     await runCard("stats", `username=${repoOwner}`, latestPath, "latest");
     await assertSvg(latestPath);
   });
 
-  test("core package version 'abcdef' fails", async () => {
+  test("la versión 'abcdef' del paquete core falla", async () => {
     const abcdefPath = path.join(buildDir, "abcdef.svg");
 
     await expect(

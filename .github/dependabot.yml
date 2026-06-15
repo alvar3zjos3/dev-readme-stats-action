@@ -1,6 +1,6 @@
 version: 2
 updates:
-  # Maintain dependencies for npm
+  # Mantener actualizadas las dependencias para npm
   - package-ecosystem: npm
     directory: "/"
     schedule:
@@ -15,7 +15,7 @@ updates:
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
 
-  # Maintain dependencies for GitHub Actions
+  # Mantener actualizadas las dependencias para GitHub Actions
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
@@ -26,3 +26,4 @@ updates:
       prefix-development: "ci(deps-dev)"
     cooldown:
       default-days: 7
+      

@@ -1,141 +1,101 @@
-# GitHub Readme Stats Action
+# Acción de GitHub para dev-readme-stats
 
-Generate [GitHub Readme Stats](https://github.com/stats-organization/github-readme-stats) cards in your GitHub Actions workflow, commit them to your profile repository, and embed them directly from there.
+Genera tarjetas dinámicas con tus estadísticas de GitHub mediante GitHub Actions, súbelas mediante un commit a tu repositorio de perfil, e insértalas directamente desde ahí. 
 
-## Quick start
+Esta es una versión personalizada basada en el proyecto original, optimizada para funcionar en español y con las mejores configuraciones por defecto para el ecosistema `dev-readme-stats`.
+
+## Inicio rápido
 
 ```yaml
-name: Update README cards
+name: Generar todas las tarjetas y temas
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs once daily at midnight
+    - cron: "0 3 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     permissions:
       contents: write
-
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v6
-
-      - name: Generate stats card
-        uses: stats-organization/github-readme-stats-action@v2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+      
+      # --- TEMA: DEFAULT ---
+      - name: stats - default
+        uses: alvar3zjos3/dev-readme-stats-action@main
         with:
           card: stats
-          options: username=${{ github.repository_owner }}&show_icons=true
-          path: profile/stats.svg
+          options: username=${{ github.repository_owner }}&theme=default
+          path: profile/themes/default/stats.svg
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate top languages card
-        uses: stats-organization/github-readme-stats-action@v2
+          
+      - name: top-langs - default
+        uses: alvar3zjos3/dev-readme-stats-action@main
         with:
           card: top-langs
-          options: username=${{ github.repository_owner }}&layout=compact&langs_count=6
-          path: profile/top-langs.svg
+          options: username=${{ github.repository_owner }}&theme=default
+          path: profile/themes/default/top-langs.svg
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate pin card
-        uses: stats-organization/github-readme-stats-action@v2
+          
+      - name: pin - default
+        uses: alvar3zjos3/dev-readme-stats-action@main
         with:
           card: pin
-          options: username=stats-organization&repo=github-readme-stats
-          path: profile/pin-stats-organization-github-readme-stats.svg
+          options: username=${{ github.repository_owner }}&repo=dev-readme-stats&show_owner=true&theme=default
+          path: profile/themes/default/pin.svg
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit cards
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add profile/*.svg
-          git commit -m "Update README cards" || exit 0
-          git push
+          
+      - name: wakatime - default
+        uses: alvar3zjos3/dev-readme-stats-action@main
+        with:
+          card: wakatime
+          options: username=${{ github.repository_owner }}&theme=default
+          path: profile/themes/default/wakatime.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      # Aquí puedes añadir tu paso final preferido (como peter-evans/create-pull-request)
+      # para subir los archivos generados a tu repositorio.
 ```
 
-Then embed from your profile README:
+Luego, inclúyelas (embed) desde el `README.md` de tu perfil:
 
 ```md
-![Stats](./profile/stats.svg)
-![Top Languages](./profile/top-langs.svg)
-![Pinned](./profile/pin-stats-organization-github-readme-stats.svg)
+![Estadísticas](./profile/themes/default/stats.svg)
+![Lenguajes](./profile/themes/default/top-langs.svg)
+![Pin](./profile/themes/default/pin.svg)
+![WakaTime](./profile/themes/default/wakatime.svg)
 ```
 
-## Deployment options
+## Entradas (Inputs)
 
-This action is a recommended deployment option. You can also use [our public GitHub-Stats-Extended instance](https://github.com/stats-organization/github-stats-extended#quick-start) or [deploy one yourself](https://github.com/stats-organization/github-stats-extended/blob/master/docs/deploy.md#self-hosted-on-vercel).
+- `card` (requerido): Tipo de tarjeta a generar. Valores soportados: `stats`, `top-langs`, `pin`, `wakatime`, `gist`.
+- `options`: Opciones de la tarjeta como una cadena de consulta (`clave=valor&...`) o JSON. Si se omite el `username`, la Acción usará el propietario del repositorio actual. **(Nota: El idioma español, el layout compacto y los iconos vienen activados por defecto).**
+- `path`: Ruta de salida para el archivo SVG. Por defecto es `profile/<card>.svg`. Te recomendamos usar `profile/themes/<nombre_del_tema>/<card>.svg`.
+- `token`: Token de GitHub (PAT o `GITHUB_TOKEN`). Para generar estadísticas de repositorios privados, usa un [PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) con los permisos `repo` y `read:user`. Para cualquier Gist, usa un PAT con permisos de `gist`.
+- `core_version`: Versión del paquete core a usar internamente. Si se omite, la Acción usa la última versión `2.x.x`.
 
-## Inputs
+## Salidas (Outputs)
 
-- `card` (required): Card type. Supported: `stats`, `top-langs`, `pin`, `wakatime`, `gist`.
-- `options`: Card options as a query string (`key=value&...`) or JSON. If `username` is omitted, the action uses the repository owner.
-- `path`: Output path for the SVG file. Defaults to `profile/<card>.svg`.
-- `token`: GitHub token (PAT or `GITHUB_TOKEN`). For private repo stats, use a [PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with `repo` and `read:user` scopes. For any gist, use a PAT with `gist` scope.
-- `core_version`: Version of [GitHub Stats Extended](https://github.com/stats-organization/github-stats-extended) to use internally. When omitted, the action uses the latest 2.x.x version.
+- `path`: Ruta donde se escribió el archivo SVG generado, relativa al espacio de trabajo.
 
-## Outputs
+## Temas Disponibles
 
-- `path`: Path where the SVG file was written, relative to the workspace.
+El ecosistema `dev-readme-stats` incluye múltiples temas visuales preconfigurados que puedes aplicar pasando el parámetro `&theme=nombre_del_tema` en la opción `options`.
 
-## Examples
+El tema por defecto es `default`, que proporciona un elegante diseño oscuro. Algunos otros temas populares incluyen:
 
-Stats example:
+- `white` (tema blanco clásico)
+- `transparent` (sin fondo)
+- `dark` (tema oscuro alternativo)
+- `radical`
+- `tokyonight`
+- `gruvbox`
+- `dracula`
 
-```yaml
-with:
-  card: stats
-  options: username=octocat&show_icons=true&hide_rank=true&bg_color=0D1117
-  token: ${{ secrets.GITHUB_TOKEN }}
-```
-
-Top languages example:
-
-```yaml
-with:
-  card: top-langs
-  options: username=octocat&layout=compact&langs_count=6
-  token: ${{ secrets.GITHUB_TOKEN }}
-```
-
-WakaTime example:
-
-```yaml
-with:
-  card: wakatime
-  options: username=octocat&layout=compact
-  token: ${{ secrets.GITHUB_TOKEN }}
-```
-
-Gist example:
-
-```yaml
-with:
-  card: gist
-  options: id=0123456789abcdef
-  token: ${{ secrets.PAT }}
-```
-
-JSON options example:
-
-```yaml
-with:
-  card: stats
-  options: '{"username":"octocat","show_icons":true,"hide_rank":true}'
-  token: ${{ secrets.GITHUB_TOKEN }}
-```
-
-Version-pinned example:
-
-```yaml
-with:
-  card: stats
-  options: username=octocat&show_icons=true
-  core_version: 2.1.2
-  token: ${{ secrets.GITHUB_TOKEN }}
-```
-
-## Notes
-
-- This action uses the same renderers and fetchers as [github-stats-extended](https://github.com/stats-organization/github-stats-extended).
+*(En total hay 63 temas disponibles para personalizar tus tarjetas a juego con tu perfil)*.

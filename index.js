@@ -9,21 +9,23 @@ import { promisify } from "node:util";
 import { getInput, info, setFailed, setOutput, warning } from "@actions/core";
 
 const execAsync = promisify(exec);
-const CORE_PACKAGE_NAME = "@stats-organization/github-readme-stats-core";
+// Modificamos el core para usar la dependencia interna en caso de que crees tu propio core, 
+// si planeas seguir usando el core original de stats-organization déjalo como estaba.
+const CORE_PACKAGE_NAME = "@stats-organization/github-readme-stats-core"; 
 const supportedCoreExports = ["api", "topLangs", "pin", "wakatime", "gist"];
 
 const validateCoreVersion = (value) => {
   const pattern = /^[a-zA-Z0-9._-]*$/;
   if (!pattern.test(value)) {
-    throw new Error("core_version must contain only a-zA-Z0-9._- characters.");
+    throw new Error("core_version debe contener solo caracteres a-zA-Z0-9._-.");
   }
   return value;
 };
 
 /**
- * Install the requested core package into an isolated temporary directory.
- * @param {string} version Package version.
- * @returns {Promise<string>} Directory containing the installed package.
+ * Instala el paquete core solicitado en un directorio temporal aislado.
+ * @param {string} version Versión del paquete.
+ * @returns {Promise<string>} Directorio que contiene el paquete instalado.
  */
 const installCorePackage = async (version) => {
   const installDir = await mkdtemp(path.join(os.tmpdir(), "grs-core-"));
@@ -48,15 +50,15 @@ const installCorePackage = async (version) => {
     return installDir;
   } catch (error) {
     throw new Error(
-      `Failed to install ${CORE_PACKAGE_NAME}@${version}: ${error}`,
+      `Fallo al instalar ${CORE_PACKAGE_NAME}@${version}: ${error}`,
     );
   }
 };
 
 /**
- * Load the core package either from the bundled dependency or from an isolated install.
- * @param {string} version Package version.
- * @returns {Promise<Record<string, unknown>>} Loaded module and cleanup callback.
+ * Carga el paquete core ya sea desde la dependencia empaquetada o desde una instalación aislada.
+ * @param {string} version Versión del paquete.
+ * @returns {Promise<Record<string, unknown>>} Módulo cargado y callback de limpieza.
  */
 const loadCoreModule = async (version) => {
   if (!version) {
@@ -70,15 +72,15 @@ const loadCoreModule = async (version) => {
 };
 
 /**
- * Build the map of supported card handlers from the loaded core module.
- * @param {Record<string, unknown>} coreModule Loaded core package module.
- * @returns {Record<string, Function>} Card handlers.
+ * Construye el mapa de manejadores de tarjetas compatibles desde el módulo core cargado.
+ * @param {Record<string, unknown>} coreModule Módulo del paquete core cargado.
+ * @returns {Record<string, Function>} Manejadores de tarjetas.
  */
 const createCardHandlers = (coreModule) => {
   for (const exportName of supportedCoreExports) {
     if (typeof coreModule[exportName] !== "function") {
       throw new Error(
-        `Loaded ${CORE_PACKAGE_NAME} does not expose the expected '${exportName}' function.`,
+        `El módulo cargado ${CORE_PACKAGE_NAME} no expone la función esperada '${exportName}'.`,
       );
     }
   }
@@ -93,9 +95,9 @@ const createCardHandlers = (coreModule) => {
 };
 
 /**
- * Normalize option values to strings.
- * @param {Record<string, unknown>} options Input options.
- * @returns {Record<string, string>} Normalized options.
+ * Normaliza los valores de las opciones a cadenas de texto.
+ * @param {Record<string, unknown>} options Opciones de entrada.
+ * @returns {Record<string, string>} Opciones normalizadas.
  */
 const normalizeOptions = (options) => {
   const normalized = {};
@@ -112,9 +114,9 @@ const normalizeOptions = (options) => {
 };
 
 /**
- * Parse options from query string or JSON and normalize values to strings.
- * @param {string} value Input value.
- * @returns {Record<string, string>} Parsed options.
+ * Analiza las opciones desde la cadena de consulta (query string) o JSON y normaliza los valores a texto.
+ * @param {string} value Valor de entrada.
+ * @returns {Record<string, string>} Opciones analizadas.
  */
 const parseOptions = (value) => {
   if (!value) {
@@ -127,7 +129,7 @@ const parseOptions = (value) => {
     try {
       Object.assign(options, JSON.parse(trimmed));
     } catch {
-      throw new Error("Invalid JSON in options.");
+      throw new Error("JSON no válido en las opciones.");
     }
   } else {
     const queryString = trimmed.startsWith("?") ? trimmed.slice(1) : trimmed;
@@ -145,33 +147,33 @@ const parseOptions = (value) => {
 };
 
 /**
- * Validate required options for each card type.
- * @param {string} card Card type.
- * @param {Record<string, string>} query Parsed options.
- * @param {string | undefined} repoOwner Repository owner from environment.
- * @throws {Error} If required options are missing.
+ * Valida las opciones requeridas para cada tipo de tarjeta.
+ * @param {string} card Tipo de tarjeta.
+ * @param {Record<string, string>} query Opciones analizadas.
+ * @param {string | undefined} repoOwner Propietario del repositorio desde el entorno.
+ * @throws {Error} Si faltan opciones requeridas.
  */
 const validateCardOptions = (card, query, repoOwner) => {
   if (!query.username && repoOwner) {
     query.username = repoOwner;
-    warning("username not provided; defaulting to repository owner.");
+    warning("No se proporcionó nombre de usuario; usando por defecto el propietario del repositorio.");
   }
   switch (card) {
     case "stats":
     case "top-langs":
     case "wakatime":
       if (!query.username) {
-        throw new Error(`username is required for the ${card} card.`);
+        throw new Error(`El nombre de usuario (username) es obligatorio para la tarjeta ${card}.`);
       }
       break;
     case "pin":
       if (!query.repo) {
-        throw new Error("repo is required for the pin card.");
+        throw new Error("El repositorio (repo) es obligatorio para la tarjeta pin.");
       }
       break;
     case "gist":
       if (!query.id) {
-        throw new Error("id is required for the gist card.");
+        throw new Error("El identificador (id) es obligatorio para la tarjeta gist.");
       }
       break;
     default:
@@ -187,11 +189,11 @@ const run = async () => {
 
   const coreModule = await loadCoreModule(coreVersion);
 
-  // Map of card types to their respective API handlers.
+  // Mapa de los tipos de tarjeta a sus respectivos manejadores de la API.
   const cardHandlers = createCardHandlers(coreModule);
   const handler = cardHandlers[card];
   if (!handler) {
-    throw new Error(`Unsupported card type: ${card}`);
+    throw new Error(`Tipo de tarjeta no soportado: ${card}`);
   }
 
   const query = parseOptions(optionsInput);
@@ -205,11 +207,11 @@ const run = async () => {
 
   const svg = (await handler(query))?.content;
   if (!svg) {
-    throw new Error("Card renderer returned empty output.");
+    throw new Error("El generador de la tarjeta devolvió un resultado vacío.");
   }
 
   await writeFile(outputPath, svg, "utf8");
-  info(`Wrote ${outputPath}`);
+  info(`Escrito correctamente en ${outputPath}`);
   setOutput("path", outputPathValue);
 };
 

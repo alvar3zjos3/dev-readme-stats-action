@@ -1,22 +1,22 @@
-name: Setup Node.js + PNPM and install Dependencies
+name: Configurar Node.js + PNPM e instalar dependencias
 description: |
-  This is a composite GitHub Action that:
-  - Sets up pnpm package manager
-  - Configures Node.js environment
-  - Installs project dependencies with caching
+  Esta es una GitHub Action compuesta que:
+  - Configura el gestor de paquetes pnpm
+  - Configura el entorno de Node.js
+  - Instala las dependencias del proyecto utilizando caché
 
 inputs:
   node-version:
-    description: "Explicit node version. Otherwise fallback reading `engines.node` in `package.json`"
+    description: "Versión explícita de Node. De lo contrario, utilizará como alternativa 'engines.node' del 'package.json'"
 
 runs:
   using: composite
 
   steps:
-    - name: Install pnpm
+    - name: Instalar pnpm
       uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5
 
-    - name: Setup Node.js (via input)
+    - name: Configurar Node.js (vía input)
       if: ${{ inputs.node-version }}
       uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
       with:
@@ -24,7 +24,7 @@ runs:
         cache: "pnpm"
         registry-url: "https://registry.npmjs.org"
 
-    - name: Setup Node.js (via package.json engines)
+    - name: Configurar Node.js (vía engines de package.json)
       if: ${{ !inputs.node-version }}
       uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
       with:
@@ -32,6 +32,7 @@ runs:
         cache: "pnpm"
         registry-url: "https://registry.npmjs.org"
 
-    - name: Install Dependencies
+    - name: Instalar dependencias
       shell: bash
       run: pnpm install --frozen-lockfile
+      
