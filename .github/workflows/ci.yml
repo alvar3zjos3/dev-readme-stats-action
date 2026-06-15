@@ -61,4 +61,3 @@ jobs:
 
       - name: Análisis estático (Lint con knip)
         run: pnpm run lint:knip
-        

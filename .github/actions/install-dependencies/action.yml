@@ -35,4 +35,3 @@ runs:
     - name: Instalar dependencias
       shell: bash
       run: pnpm install --frozen-lockfile
-      

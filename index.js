@@ -9,9 +9,9 @@ import { promisify } from "node:util";
 import { getInput, info, setFailed, setOutput, warning } from "@actions/core";
 
 const execAsync = promisify(exec);
-// Modificamos el core para usar la dependencia interna en caso de que crees tu propio core, 
+// Modificamos el core para usar la dependencia interna en caso de que crees tu propio core,
 // si planeas seguir usando el core original de stats-organization déjalo como estaba.
-const CORE_PACKAGE_NAME = "@stats-organization/github-readme-stats-core"; 
+const CORE_PACKAGE_NAME = "@stats-organization/github-readme-stats-core";
 const supportedCoreExports = ["api", "topLangs", "pin", "wakatime", "gist"];
 
 const validateCoreVersion = (value) => {
@@ -156,24 +156,32 @@ const parseOptions = (value) => {
 const validateCardOptions = (card, query, repoOwner) => {
   if (!query.username && repoOwner) {
     query.username = repoOwner;
-    warning("No se proporcionó nombre de usuario; usando por defecto el propietario del repositorio.");
+    warning(
+      "No se proporcionó nombre de usuario; usando por defecto el propietario del repositorio.",
+    );
   }
   switch (card) {
     case "stats":
     case "top-langs":
     case "wakatime":
       if (!query.username) {
-        throw new Error(`El nombre de usuario (username) es obligatorio para la tarjeta ${card}.`);
+        throw new Error(
+          `El nombre de usuario (username) es obligatorio para la tarjeta ${card}.`,
+        );
       }
       break;
     case "pin":
       if (!query.repo) {
-        throw new Error("El repositorio (repo) es obligatorio para la tarjeta pin.");
+        throw new Error(
+          "El repositorio (repo) es obligatorio para la tarjeta pin.",
+        );
       }
       break;
     case "gist":
       if (!query.id) {
-        throw new Error("El identificador (id) es obligatorio para la tarjeta gist.");
+        throw new Error(
+          "El identificador (id) es obligatorio para la tarjeta gist.",
+        );
       }
       break;
     default:
