@@ -11,7 +11,7 @@ import { getInput, info, setFailed, setOutput, warning } from "@actions/core";
 const execAsync = promisify(exec);
 // Modificamos el core para usar la dependencia interna en caso de que crees tu propio core,
 // si planeas seguir usando el core original de stats-organization déjalo como estaba.
-const CORE_PACKAGE_NAME = "@stats-organization/github-readme-stats-core";
+const CORE_PACKAGE_NAME = "dev-readme-stats";
 const supportedCoreExports = ["api", "topLangs", "pin", "wakatime", "gist"];
 
 const validateCoreVersion = (value) => {
@@ -213,12 +213,28 @@ const run = async () => {
   const outputPath = path.resolve(process.cwd(), outputPathValue);
   await mkdir(path.dirname(outputPath), { recursive: true });
 
-  const svg = (await handler(query))?.content;
-  if (!svg) {
+  // 1. Creamos un objeto 'req' simulado de Express
+  const req = { query };
+
+  // 2. Creamos un objeto 'res' simulado para capturar el SVG final
+  let responseData = "";
+  const res = {
+    setHeader: () => {}, // Ignoramos los headers
+    status: () => res, // Permitimos encadenamiento de métodos como res.status(200).send(...)
+    send: (data) => {
+      responseData = data;
+    },
+  };
+
+  // 3. Ejecutamos la función de la tarjeta con los objetos req y res simulados
+  await handler(req, res);
+
+  if (!responseData) {
     throw new Error("El generador de la tarjeta devolvió un resultado vacío.");
   }
 
-  await writeFile(outputPath, svg, "utf8");
+  // 4. Guardamos el resultado en el archivo final
+  await writeFile(outputPath, responseData, "utf8");
   info(`Escrito correctamente en ${outputPath}`);
   setOutput("path", outputPathValue);
 };

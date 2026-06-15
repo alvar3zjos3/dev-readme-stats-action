@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@actions/core": "^3.0.1",
-    "@stats-organization/github-readme-stats-core": "2.1.2"
+    "dev-readme-stats": "github:alvar3zjos3/dev-readme-stats"
   },
   "devDependencies": {
     "husky": "9.1.7",

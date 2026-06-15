@@ -1,6 +1,7 @@
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  - "@stats-organization/github-readme-stats-core"
+  - "dev-readme-stats"
 
 onlyBuiltDependencies:
   - "@stats-organization/root"
+  - "dev-readme-stats"

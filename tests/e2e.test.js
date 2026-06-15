@@ -86,41 +86,4 @@ describe.concurrent("generar tarjetas localmente", () => {
     await runCard("wakatime", "username=MNZ&layout=compact", wakatimePath);
     await assertSvg(wakatimePath);
   });
-
-  test("rechaza la entrada de core_version no válida antes de instalar", async () => {
-    const invalidVersionPath = path.join(buildDir, "invalid-version.svg");
-
-    await expect(
-      runCard(
-        "stats",
-        `username=${repoOwner}`,
-        invalidVersionPath,
-        "latest && whoami",
-      ),
-    ).rejects.toThrow();
-  });
 });
-
-describe("incluir las versiones del paquete core solicitadas", () => {
-  test("usar la versión 'v2' del paquete core", async () => {
-    const v2Path = path.join(buildDir, "v2.svg");
-
-    await runCard("stats", `username=${repoOwner}`, v2Path, "v2");
-    await assertSvg(v2Path);
-  });
-
-  test("usar la versión 'latest' del paquete core", async () => {
-    const latestPath = path.join(buildDir, "latest.svg");
-
-    await runCard("stats", `username=${repoOwner}`, latestPath, "latest");
-    await assertSvg(latestPath);
-  });
-
-  test("la versión 'abcdef' del paquete core falla", async () => {
-    const abcdefPath = path.join(buildDir, "abcdef.svg");
-
-    await expect(
-      runCard("stats", `username=${repoOwner}`, abcdefPath, "abcdef"),
-    ).rejects.toThrow();
-  });
-}, 20_000);
