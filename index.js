@@ -240,5 +240,9 @@ const run = async () => {
 };
 
 run().catch((error) => {
-  setFailed(error instanceof Error ? error.message : String(error));
+  if (error instanceof Error) {
+    setFailed(error.message);
+  } else {
+    setFailed(`Fallo inesperado: ${error}`);
+  }
 });
