@@ -97,5 +97,3 @@ El tema por defecto es `default`, que proporciona un elegante diseño oscuro. Al
 - `tokyonight`
 - `gruvbox`
 - `dracula`
-
-*(En total hay 63 temas disponibles para personalizar tus tarjetas a juego con tu perfil)*.
