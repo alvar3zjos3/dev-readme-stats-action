@@ -83,7 +83,11 @@ describe.concurrent("generar tarjetas localmente", () => {
 
   test("la tarjeta wakatime generada contiene un svg", async () => {
     const wakatimePath = path.join(buildDir, "wakatime.svg");
-    await runCard("wakatime", "username=MNZ&layout=compact", wakatimePath);
+    await runCard(
+      "wakatime",
+      "username=alvar3zjos3&layout=compact",
+      wakatimePath,
+    );
     await assertSvg(wakatimePath);
   });
 });
