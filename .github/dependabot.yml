@@ -15,7 +15,12 @@ updates:
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
       - dependency-name: "dev-readme-stats"
-        update-types: ["version-update:semver-major", "version-update:semver-minor", "version-update:semver-patch"]
+        update-types:
+          [
+            "version-update:semver-major",
+            "version-update:semver-minor",
+            "version-update:semver-patch",
+          ]
 
   # Mantener actualizadas las dependencias para GitHub Actions
   - package-ecosystem: github-actions
