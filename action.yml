@@ -18,7 +18,7 @@ inputs:
     required: false
     default: ""
   core_version:
-    description: Versión de @stats-organization/github-readme-stats-core a usar internamente.
+    description: Versión del paquete principal dev-readme-stats a usar internamente.
     required: false
     default: ""
 outputs:
@@ -46,7 +46,6 @@ runs:
     - name: Instalar dependencias
       # --prod omite devDependencies (husky, vitest, etc.); --ignore-scripts omite el
       # hook de preparación de husky, que de otro modo fallaría ya que husky no está instalado.
-      # https://github.com/stats-organization/github-readme-stats-action/issues/63
       run: pnpm install --frozen-lockfile --prod --ignore-scripts
       shell: bash
       working-directory: ${{ github.action_path }}
