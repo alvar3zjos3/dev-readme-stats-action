@@ -13,7 +13,7 @@ importers:
         version: 3.0.1
       dev-readme-stats:
         specifier: github:alvar3zjos3/dev-readme-stats
-        version: https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/4b3987d26bd044d40d8e34ee1e4a7db1f3d9acf5
+        version: https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/fb2553dc89469fa3a936f43222b3bd31fb13105c
     devDependencies:
       husky:
         specifier: 9.1.7
@@ -25,8 +25,8 @@ importers:
         specifier: 17.0.8
         version: 17.0.8
       prettier:
-        specifier: 3.8.5
-        version: 3.8.5
+        specifier: 3.9.4
+        version: 3.9.4
       vitest:
         specifier: 4.1.9
         version: 4.1.9(vite@8.0.3(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(jiti@2.7.0)(yaml@2.9.0))
@@ -553,8 +553,8 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  dev-readme-stats@https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/4b3987d26bd044d40d8e34ee1e4a7db1f3d9acf5:
-    resolution: {tarball: https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/4b3987d26bd044d40d8e34ee1e4a7db1f3d9acf5}
+  dev-readme-stats@https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/fb2553dc89469fa3a936f43222b3bd31fb13105c:
+    resolution: {tarball: https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/fb2553dc89469fa3a936f43222b3bd31fb13105c}
     version: 1.0.0
     engines: {node: '>=22'}
 
@@ -924,12 +924,12 @@ packages:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
     engines: {node: '>=12'}
 
-  postcss@8.5.15:
-    resolution: {integrity: sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A==}
+  postcss@8.5.16:
+    resolution: {integrity: sha512-vuwillviilfKZsg0VGj5R/YwwcHx4SLsIOI/7K6mQkWx+l5cUHTjj5g0AasTBcyXsbfTgrwsUNmVUb5xVwyPwg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  prettier@3.8.5:
-    resolution: {integrity: sha512-zxcTTCedNGJM4R8sj/Cq/F0W/c4iE0afWBcBwMTRtw4WHYP9TWkYjdiH3npPRUYsXQCPR0hTU9yjovOu+E6EQA==}
+  prettier@3.9.4:
+    resolution: {integrity: sha512-yWG/o/4oJfo036EKAfK6ACAoDOfHeRHx4tuxkfBZiauURiaSmYwlpOr5LQqKtIkRD2z1PLteme2WoxEnj4tHTg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -1612,7 +1612,7 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
-  dev-readme-stats@https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/4b3987d26bd044d40d8e34ee1e4a7db1f3d9acf5:
+  dev-readme-stats@https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/fb2553dc89469fa3a936f43222b3bd31fb13105c:
     dependencies:
       axios: 1.18.1
       dotenv: 17.4.2
@@ -2010,13 +2010,13 @@ snapshots:
 
   picomatch@4.0.4: {}
 
-  postcss@8.5.15:
+  postcss@8.5.16:
     dependencies:
       nanoid: 3.3.15
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  prettier@3.8.5: {}
+  prettier@3.9.4: {}
 
   proxy-addr@2.0.7:
     dependencies:
@@ -2217,7 +2217,7 @@ snapshots:
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
-      postcss: 8.5.15
+      postcss: 8.5.16
       rolldown: 1.0.0-rc.12(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)
       tinyglobby: 0.2.17
     optionalDependencies:
