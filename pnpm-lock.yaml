@@ -13,14 +13,14 @@ importers:
         version: 3.0.1
       dev-readme-stats:
         specifier: github:alvar3zjos3/dev-readme-stats
-        version: https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/4b3987d26bd044d40d8e34ee1e4a7db1f3d9acf5
+        version: https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/fb2553dc89469fa3a936f43222b3bd31fb13105c
     devDependencies:
       husky:
         specifier: 9.1.7
         version: 9.1.7
       knip:
-        specifier: 6.21.0
-        version: 6.21.0
+        specifier: 6.24.0
+        version: 6.24.0
       lint-staged:
         specifier: 17.0.8
         version: 17.0.8
@@ -553,8 +553,8 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  dev-readme-stats@https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/4b3987d26bd044d40d8e34ee1e4a7db1f3d9acf5:
-    resolution: {tarball: https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/4b3987d26bd044d40d8e34ee1e4a7db1f3d9acf5}
+  dev-readme-stats@https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/fb2553dc89469fa3a936f43222b3bd31fb13105c:
+    resolution: {tarball: https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/fb2553dc89469fa3a936f43222b3bd31fb13105c}
     version: 1.0.0
     engines: {node: '>=22'}
 
@@ -742,8 +742,8 @@ packages:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
 
-  knip@6.21.0:
-    resolution: {integrity: sha512-q7K9VGSFfdVaCjhj9u+5aI2t5CZt3edZeLi+1wjnGAvYB2WfW6+T9UWAREsTR88aB8YeDqkKVZiVMV7va3oTmg==}
+  knip@6.24.0:
+    resolution: {integrity: sha512-PokLlgeEjLh1rAsB7ts+52wZ37HBr1nDhE6NNONwEaXdeZGCJOkP7ZlIAI2Gtu8xohquzTWy75bc/1diI9shQw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -924,8 +924,12 @@ packages:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
     engines: {node: '>=12'}
 
-  postcss@8.5.15:
-    resolution: {integrity: sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A==}
+  picomatch@4.0.5:
+    resolution: {integrity: sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==}
+    engines: {node: '>=12'}
+
+  postcss@8.5.16:
+    resolution: {integrity: sha512-vuwillviilfKZsg0VGj5R/YwwcHx4SLsIOI/7K6mQkWx+l5cUHTjj5g0AasTBcyXsbfTgrwsUNmVUb5xVwyPwg==}
     engines: {node: ^10 || ^12 || >=14}
 
   prettier@3.8.5:
@@ -1085,8 +1089,8 @@ packages:
     resolution: {integrity: sha512-faYHw0anBbc/kWF3zFTEnxSFOAGUX9GFbOBthvDdLsIlEoWOFOtS0zgCiQYwIskL9iGXZL3kAXD8OoZ4GmMATA==}
     engines: {node: '>= 18'}
 
-  unbash@4.0.1:
-    resolution: {integrity: sha512-1ajSo3813sDoVIHx4inJdUS4l5L2ic5cFiddemPiyjb/PZEoBAhFwHtbaEdRDFxbAKy7FCG7s5ww3/uCFawuIA==}
+  unbash@4.0.2:
+    resolution: {integrity: sha512-8gwNZ29+0/3zmXw7ToIHZtg6wK37xnniRUdBt7B27xZxaxfgR5tGMaGHT0t0dLtBV9fXE7zurh0s6Z1DHVjfWg==}
     engines: {node: '>=14'}
 
   undici@6.25.0:
@@ -1612,7 +1616,7 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
-  dev-readme-stats@https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/4b3987d26bd044d40d8e34ee1e4a7db1f3d9acf5:
+  dev-readme-stats@https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/fb2553dc89469fa3a936f43222b3bd31fb13105c:
     dependencies:
       axios: 1.18.1
       dotenv: 17.4.2
@@ -1708,9 +1712,9 @@ snapshots:
     dependencies:
       walk-up-path: 4.0.0
 
-  fdir@6.5.0(picomatch@4.0.4):
+  fdir@6.5.0(picomatch@4.0.5):
     optionalDependencies:
-      picomatch: 4.0.4
+      picomatch: 4.0.5
 
   finalhandler@2.1.1:
     dependencies:
@@ -1817,19 +1821,19 @@ snapshots:
 
   jiti@2.7.0: {}
 
-  knip@6.21.0:
+  knip@6.24.0:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.4)
+      fdir: 6.5.0(picomatch@4.0.5)
       formatly: 0.3.0
       get-tsconfig: 4.14.0
       jiti: 2.7.0
       oxc-parser: 0.137.0
       oxc-resolver: 11.21.3
-      picomatch: 4.0.4
+      picomatch: 4.0.5
       smol-toml: 1.7.0
       strip-json-comments: 5.0.3
       tinyglobby: 0.2.17
-      unbash: 4.0.1
+      unbash: 4.0.2
       yaml: 2.9.0
       zod: 4.4.3
 
@@ -2010,7 +2014,9 @@ snapshots:
 
   picomatch@4.0.4: {}
 
-  postcss@8.5.15:
+  picomatch@4.0.5: {}
+
+  postcss@8.5.16:
     dependencies:
       nanoid: 3.3.15
       picocolors: 1.1.1
@@ -2187,8 +2193,8 @@ snapshots:
 
   tinyglobby@0.2.17:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.4)
-      picomatch: 4.0.4
+      fdir: 6.5.0(picomatch@4.0.5)
+      picomatch: 4.0.5
 
   tinyrainbow@3.1.0: {}
 
@@ -2205,7 +2211,7 @@ snapshots:
       media-typer: 1.1.0
       mime-types: 3.0.2
 
-  unbash@4.0.1: {}
+  unbash@4.0.2: {}
 
   undici@6.25.0: {}
 
@@ -2216,8 +2222,8 @@ snapshots:
   vite@8.0.3(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(jiti@2.7.0)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.32.0
-      picomatch: 4.0.4
-      postcss: 8.5.15
+      picomatch: 4.0.5
+      postcss: 8.5.16
       rolldown: 1.0.0-rc.12(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)
       tinyglobby: 0.2.17
     optionalDependencies:
