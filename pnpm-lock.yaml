@@ -19,8 +19,8 @@ importers:
         specifier: 9.1.7
         version: 9.1.7
       knip:
-        specifier: 6.32.2
-        version: 6.32.2
+        specifier: 6.32.3
+        version: 6.32.3
       lint-staged:
         specifier: 17.3.0
         version: 17.3.0
@@ -694,8 +694,8 @@ packages:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
 
-  knip@6.32.2:
-    resolution: {integrity: sha512-WXTXbmocrw7gqm1A1TQvFN0OgJ7hUSU6E1g6SPRIzzHFogUBhXByc7cYeOFVtJ2uODg7DP4VbESYBYnfbtBYsg==}
+  knip@6.32.3:
+    resolution: {integrity: sha512-wOJ1Av8PwKqFO0wU7F64vzIcUjxhrieA3Tc2lmeK9C9prpxq+TeG2ewNH5tCaBVZwXNPp6lJkrr+IhZ20iqkMA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -858,6 +858,10 @@ packages:
 
   picomatch@4.0.5:
     resolution: {integrity: sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==}
+    engines: {node: '>=12'}
+
+  picomatch@4.0.7:
+    resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
     engines: {node: '>=12'}
 
   postcss@8.5.26:
@@ -1557,9 +1561,9 @@ snapshots:
     dependencies:
       walk-up-path: 4.0.0
 
-  fdir@6.5.0(picomatch@4.0.5):
+  fdir@6.5.0(picomatch@4.0.7):
     optionalDependencies:
-      picomatch: 4.0.5
+      picomatch: 4.0.7
 
   finalhandler@2.1.1:
     dependencies:
@@ -1660,15 +1664,15 @@ snapshots:
 
   jiti@2.7.0: {}
 
-  knip@6.32.2:
+  knip@6.32.3:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.5)
+      fdir: 6.5.0(picomatch@4.0.7)
       formatly: 0.3.0
       get-tsconfig: 4.14.1
       jiti: 2.7.0
       oxc-parser: 0.143.0
       oxc-resolver: 11.24.2
-      picomatch: 4.0.5
+      picomatch: 4.0.7
       smol-toml: 1.8.0
       strip-json-comments: 5.0.3
       tinyglobby: 0.2.17
@@ -1829,6 +1833,8 @@ snapshots:
 
   picomatch@4.0.5: {}
 
+  picomatch@4.0.7: {}
+
   postcss@8.5.26:
     dependencies:
       nanoid: 3.3.18
@@ -1972,8 +1978,8 @@ snapshots:
 
   tinyglobby@0.2.17:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.5)
-      picomatch: 4.0.5
+      fdir: 6.5.0(picomatch@4.0.7)
+      picomatch: 4.0.7
 
   tinyrainbow@3.1.1: {}
 
@@ -2001,7 +2007,7 @@ snapshots:
   vite@8.0.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(jiti@2.7.0)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
-      picomatch: 4.0.5
+      picomatch: 4.0.7
       postcss: 8.5.26
       rolldown: 1.0.0-rc.12(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)
       tinyglobby: 0.2.17
