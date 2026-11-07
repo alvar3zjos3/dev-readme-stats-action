@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "husky": "9.1.7",
-    "knip": "6.32.2",
+    "knip": "6.44.1",
     "lint-staged": "17.6.0",
     "prettier": "3.9.10",
     "vitest": "5.0.5"
