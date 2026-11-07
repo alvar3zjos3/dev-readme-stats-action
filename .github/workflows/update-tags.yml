@@ -1,10 +1,14 @@
 name: Actualizar etiquetas de versión
+
 on:
-  push:
-    branches-ignore:
-      - "**"
-    tags:
-      - "v*.*.*"
+  schedule:
+    - cron: "0 6 1 * *" # día 1 de cada mes, 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Etiqueta a procesar (ej. v1.2.3). Vacío = última versión"
+        required: false
+        type: string
 
 permissions: {}
 
@@ -16,5 +20,29 @@ jobs:
     steps:
       - name: Descargar código fuente
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Determinar etiqueta
+        id: tag
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          if [ -n "$INPUT_TAG" ]; then
+            TAG="$INPUT_TAG"
+          else
+            TAG=$(git tag --list 'v*.*.*' --sort=-v:refname \
+              | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)
+          fi
+          if [ -z "$TAG" ]; then
+            echo "No se encontró ninguna etiqueta vX.Y.Z" >&2
+            exit 1
+          fi
+          git checkout "$TAG"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
       - name: Actualizar versión semántica
         uses: haya14busa/action-update-semver@7d2c558640ea49e798d46539536190aff8c18715 # v1.5.1
+        with:
+          tag: ${{ steps.tag.outputs.tag }}
