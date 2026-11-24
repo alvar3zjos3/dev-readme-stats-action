@@ -1,6 +1,6 @@
 {
   "name": "dev-readme-stats-action",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Acción de GitHub para generar tarjetas de estadísticas dinámicas en formato SVG. Bifurcación personalizada con español como idioma principal y temas predeterminados para el ecosistema dev-readme-stats.",
   "type": "module",
   "packageManager": "pnpm@12.23.0",
