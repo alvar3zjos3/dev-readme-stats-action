@@ -1,5 +1,5 @@
 import { exec } from "node:child_process";
-import { mkdir, mkdtemp, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import os from "node:os";
 import path from "node:path";
@@ -49,6 +49,7 @@ const installCorePackage = async (version) => {
 
     return installDir;
   } catch (error) {
+    await rm(installDir, { recursive: true, force: true });
     throw new Error(
       `Fallo al instalar ${CORE_PACKAGE_NAME}@${version}: ${error}`,
     );
@@ -58,7 +59,7 @@ const installCorePackage = async (version) => {
 /**
  * Carga el paquete core ya sea desde la dependencia empaquetada o desde una instalación aislada.
  * @param {string} version Versión del paquete.
- * @returns {Promise<Record<string, unknown>>} Módulo cargado y callback de limpieza.
+ * @returns {Promise<Record<string, unknown>>} Módulo cargado.
  */
 const loadCoreModule = async (version) => {
   if (!version) {
@@ -66,9 +67,13 @@ const loadCoreModule = async (version) => {
   }
 
   const installDir = await installCorePackage(version);
-  const installRequire = createRequire(path.join(installDir, "package.json"));
-  const modulePath = installRequire.resolve(CORE_PACKAGE_NAME);
-  return await import(pathToFileURL(modulePath).href);
+  try {
+    const installRequire = createRequire(path.join(installDir, "package.json"));
+    const modulePath = installRequire.resolve(CORE_PACKAGE_NAME);
+    return await import(pathToFileURL(modulePath).href);
+  } finally {
+    await rm(installDir, { recursive: true, force: true });
+  }
 };
 
 /**

@@ -433,7 +433,7 @@ Luego, inclúyelas (embed) desde el `README.md` de tu perfil:
 - `options`: Opciones de la tarjeta como una cadena de consulta (`clave=valor&...`) o JSON. Si se omite el `username`, la Acción usará el propietario del repositorio actual. **(Nota: El idioma español, el layout compacto y los iconos vienen activados por defecto).**
 - `path`: Ruta de salida para el archivo SVG. Por defecto es `profile/<card>.svg`. Te recomendamos usar `profile/themes/<nombre_del_tema>/<card>.svg`.
 - `token`: Token de GitHub (PAT o `GITHUB_TOKEN`). Para generar estadísticas de repositorios privados, usa un [PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) con los permisos `repo` y `read:user`. Para cualquier Gist, usa un PAT con permisos de `gist`.
-- `core_version`: Versión del paquete core a usar internamente. Si se omite, la Acción usa la última versión `2.x.x`.
+- `core_version`: Versión del paquete core a usar internamente. Si se omite, la Acción usa la versión fijada en sus dependencias. Si se especifica, instala esa versión de forma aislada.
 
 ## Salidas (Outputs)
 
@@ -452,3 +452,14 @@ El tema por defecto es `default`, que proporciona un elegante diseño oscuro. Al
 - `tokyonight`
 - `gruvbox`
 - `dracula`
+
+## Desarrollo local
+
+El proyecto requiere Node.js `26.x` y pnpm `12.x`. La versión de pnpm está fijada en `package.json` y la versión de Node.js se mantiene sincronizada en `.nvmrc`.
+
+```bash
+pnpm install
+pnpm test
+pnpm run format:check
+pnpm run lint:knip
+```

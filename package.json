@@ -3,12 +3,12 @@
   "version": "0.3.0",
   "description": "Acción de GitHub para generar tarjetas de estadísticas dinámicas en formato SVG. Bifurcación personalizada con español como idioma principal y temas predeterminados para el ecosistema dev-readme-stats.",
   "type": "module",
-  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
+  "packageManager": "pnpm@12.23.0",
   "license": "MIT",
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
     "prepare": "husky",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -16,19 +16,20 @@
   },
   "dependencies": {
     "@actions/core": "^3.0.1",
-    "dev-readme-stats": "github:alvar3zjos3/dev-readme-stats"
+    "dev-readme-stats": "https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/460603e2d5b4774ebc4eff956909d94d73f98151"
   },
   "devDependencies": {
     "husky": "9.1.7",
-    "knip": "6.44.1",
-    "lint-staged": "17.6.0",
-    "prettier": "3.9.10",
-    "vitest": "5.0.5"
+    "knip": "6.48.0",
+    "lint-staged": "17.6.2",
+    "prettier": "3.10.1",
+    "vite": "^8.3.8",
+    "vitest": "5.1.1"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,json,jsonc,yaml,yml}": "prettier --write"
   },
   "engines": {
-    "node": "24.x"
+    "node": "26.x"
   }
 }

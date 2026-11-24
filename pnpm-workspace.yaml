@@ -1,7 +1,17 @@
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - "dev-readme-stats"
+  - "knip"
+  - "lint-staged"
+  - "tinybench"
+  - "unbash"
 
 onlyBuiltDependencies:
   - "@stats-organization/root"
   - "dev-readme-stats"
+
+allowBuilds:
+  "dev-readme-stats@https://codeload.github.com/alvar3zjos3/dev-readme-stats/tar.gz/460603e2d5b4774ebc4eff956909d94d73f98151": true
+
+overrides:
+  undici: ^6.29.1

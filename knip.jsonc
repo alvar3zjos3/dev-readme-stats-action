@@ -1,4 +1,5 @@
 {
   "$schema": "./node_modules/knip/schema.json",
-  "ignoreDependencies": ["dev-readme-stats"]
+  "ignore": [".husky/**"],
+  "ignoreDependencies": ["dev-readme-stats", "lint-staged"]
 }
